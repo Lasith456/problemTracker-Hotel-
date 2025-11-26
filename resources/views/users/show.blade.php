@@ -49,7 +49,7 @@
 
     {{-- Footer --}}
     <p class="text-center text-gray-500 dark:text-gray-400 text-sm mt-6">
-        Powered By <span class="font-semibold text-blue-600">NsoftItSolutions</span>
+        Powered By <span class="font-semibold text-blue-600">NavicodesItSolutions</span>
     </p>
 </div>
 @endsection

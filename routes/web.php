@@ -5,6 +5,11 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProblemTypeController;
+use App\Http\Controllers\ProblemAreaController;
+use App\Http\Controllers\NotificationSourceController;
+use App\Http\Controllers\HotelController;
+use App\Http\Controllers\ProblemTicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +40,11 @@ Route::middleware(['auth'])->group(function () {
 
     // 🛒 Product Management
     Route::resource('products', ProductController::class);
+    Route::resource('problem-types', ProblemTypeController::class);
+    Route::resource('problem-areas', ProblemAreaController::class);
+    Route::resource('notification-sources', NotificationSourceController::class);
+    Route::resource('hotels', HotelController::class);
+    Route::resource('tickets', ProblemTicketController::class);
+
 
 });
