@@ -129,14 +129,14 @@
             <div class="grid sm:grid-cols-2 gap-4 mb-4">
                 <div>
                     <label class="font-semibold">Actioned At</label>
-                    <input type="datetime-local" name="actioned_at"
-                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
+                    <input type="date" name="actioned_at"
+                        class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
                 </div>
 
                 <div>
                     <label class="font-semibold">Follow-up At</label>
-                    <input type="datetime-local" name="followed_up_at"
-                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
+                    <input type="date" name="followed_up_at"
+                        class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
                 </div>
             </div>
 

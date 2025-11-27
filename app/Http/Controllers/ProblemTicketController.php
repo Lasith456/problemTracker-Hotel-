@@ -21,15 +21,45 @@ class ProblemTicketController extends Controller
     }
 
     /** List all tickets */
-    public function index()
-    {
-        $tickets = ProblemTicket::with(['hotel','problemType','problemArea','notificationSource'])
-                    ->latest()
-                    ->paginate(10);
+public function index(Request $request)
+{
+    // Fetch filter values
+    $status      = $request->status;
+    $ticket_id   = $request->ticket_id;
+    $hotel_id    = $request->hotel_id;
+    $type_id     = $request->problem_type_id;
 
-        return view('tickets.index', compact('tickets'))
-                ->with('i', (request()->input('page', 1) - 1) * 10);
+    // Query builder
+    $query = ProblemTicket::with(['hotel','problemType']);
+
+    // Apply filters
+    if (!empty($ticket_id)) {
+        $query->where('ticket_id', 'LIKE', "%$ticket_id%");
     }
+
+    if (!empty($status)) {
+        $query->where('status', $status);
+    }
+
+    if (!empty($hotel_id)) {
+        $query->where('hotel_id', $hotel_id);
+    }
+
+    if (!empty($type_id)) {
+        $query->where('problem_type_id', $type_id);
+    }
+
+    // Paginate
+    $tickets = $query->latest()->paginate(10);
+
+    // Pass dropdown data
+    $hotels = Hotel::all();
+    $problemTypes = ProblemType::all();
+
+    return view('tickets.index', compact('tickets','hotels','problemTypes'))
+        ->with('i', (request()->input('page', 1) - 1) * 10);
+}
+
 
     /** Show Create Form */
     public function create()

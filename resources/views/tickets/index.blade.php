@@ -23,6 +23,67 @@
             {{ session('success') }}
         </div>
     @endif
+{{-- FILTERS --}}
+<form method="GET" action="{{ route('tickets.index') }}" class="mb-6 bg-white p-4 rounded-xl shadow flex flex-wrap gap-4">
+
+    {{-- Ticket ID --}}
+    <div class="w-full sm:w-1/4">
+        <label class="text-sm font-semibold text-gray-700">Ticket ID</label>
+        <input type="text" name="ticket_id" value="{{ request('ticket_id') }}"
+               class="w-full mt-1 p-2 border rounded-lg" placeholder="Search by ID">
+    </div>
+
+    {{-- Hotel --}}
+    <div class="w-full sm:w-1/4">
+        <label class="text-sm font-semibold text-gray-700">Hotel</label>
+        <select name="hotel_id" class="w-full mt-1 p-2 border rounded-lg">
+            <option value="">All Hotels</option>
+            @foreach ($hotels as $hotel)
+                <option value="{{ $hotel->id }}" {{ request('hotel_id') == $hotel->id ? 'selected' : '' }}>
+                    {{ $hotel->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    {{-- Problem Type --}}
+    <div class="w-full sm:w-1/4">
+        <label class="text-sm font-semibold text-gray-700">Problem Type</label>
+        <select name="problem_type_id" class="w-full mt-1 p-2 border rounded-lg">
+            <option value="">All Types</option>
+            @foreach ($problemTypes as $type)
+                <option value="{{ $type->id }}" {{ request('problem_type_id') == $type->id ? 'selected' : '' }}>
+                    {{ $type->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    {{-- Status --}}
+    <div class="w-full sm:w-1/4">
+        <label class="text-sm font-semibold text-gray-700">Status</label>
+        <select name="status" class="w-full mt-1 p-2 border rounded-lg">
+            <option value="">All Status</option>
+            <option value="Pending" {{ request('status')=='Pending' ? 'selected' : '' }}>Pending</option>
+            <option value="In Progress" {{ request('status')=='In Progress' ? 'selected' : '' }}>In Progress</option>
+            <option value="Completed" {{ request('status')=='Completed' ? 'selected' : '' }}>Completed</option>
+        </select>
+    </div>
+
+    {{-- Buttons --}}
+    <div class="w-full flex gap-3 pt-3">
+        <button type="submit"
+            class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            Apply Filter
+        </button>
+
+        <a href="{{ route('tickets.index') }}"
+           class="px-5 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">
+            Clear
+        </a>
+    </div>
+
+</form>
 
     {{-- Table --}}
     <div class="bg-white shadow-lg rounded-xl overflow-hidden border">
