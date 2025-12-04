@@ -39,6 +39,12 @@
                 <p class="text-gray-900">{{ $ticket->hotel->name }}</p>
             </div>
 
+            {{-- Department --}}
+            <div>
+                <h4 class="font-semibold text-gray-700">Department</h4>
+                <p class="text-gray-900">{{ $ticket->department->name ?? 'N/A' }}</p>
+            </div>
+            
             {{-- Guest Name --}}
             <div>
                 <h4 class="font-semibold text-gray-700">Guest Name</h4>

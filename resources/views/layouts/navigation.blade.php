@@ -161,6 +161,25 @@
             </ul>
         </li>
         @endcanany
+        {{-- DEPARTMENTS --}}
+        @canany(['department-list','department-create','department-edit','department-delete'])
+        <li x-data="{ open: {{ request()->routeIs('departments.*') ? 'true' : 'false' }} }">
+            <button @click="open = !open"
+                class="w-full flex items-center gap-x-3 rounded-md p-2 text-sm font-semibold text-left transition
+                {{ request()->routeIs('departments.*') ? 'bg-gray-800 text-white' : 'hover:bg-gray-800 hover:text-white' }}">
+                <i class="fa-solid fa-building h-5 w-5"></i>
+                <span x-show="!sidebarCollapsed || sidebarHover" class="whitespace-nowrap flex-1">Departments</span>
+                <i x-show="!sidebarCollapsed || sidebarHover"
+                :class="{'rotate-90': open}"
+                class="fa-solid fa-chevron-right text-xs transition-transform duration-300"></i>
+            </button>
+
+            <ul x-show="open" x-collapse class="mt-1 px-2 space-y-1">
+                <li><a href="{{ route('departments.create') }}" class="block rounded-md py-2 pl-9 pr-2 text-sm hover:bg-gray-800 hover:text-white">Add Department</a></li>
+                <li><a href="{{ route('departments.index') }}" class="block rounded-md py-2 pl-9 pr-2 text-sm hover:bg-gray-800 hover:text-white">All Departments</a></li>
+            </ul>
+        </li>
+        @endcanany
 
 
         {{-- USERS & ROLES --}}

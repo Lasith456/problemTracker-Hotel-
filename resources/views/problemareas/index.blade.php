@@ -99,7 +99,7 @@
 
     {{-- Pagination --}}
     <div class="mt-5">
-        {!! $areas->links('pagination::bootstrap-5') !!}
+{{ $areas->links('vendor.pagination.tailwind') }}
     </div>
 
     {{-- Footer --}}

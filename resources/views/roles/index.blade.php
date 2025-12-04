@@ -72,7 +72,7 @@
 
     {{-- Pagination --}}
     <div class="mt-6">
-        {!! $roles->links('pagination::bootstrap-5') !!}
+{{ $roles->links('vendor.pagination.tailwind') }}
     </div>
 
     {{-- Footer --}}

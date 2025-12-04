@@ -24,17 +24,18 @@
         </div>
     @endif
 {{-- FILTERS --}}
-<form method="GET" action="{{ route('tickets.index') }}" class="mb-6 bg-white p-4 rounded-xl shadow flex flex-wrap gap-4">
+<form method="GET" action="{{ route('tickets.index') }}"
+      class="mb-6 bg-white p-4 rounded-xl shadow grid grid-cols-1 sm:grid-cols-5 gap-4">
 
     {{-- Ticket ID --}}
-    <div class="w-full sm:w-1/4">
+    <div>
         <label class="text-sm font-semibold text-gray-700">Ticket ID</label>
         <input type="text" name="ticket_id" value="{{ request('ticket_id') }}"
-               class="w-full mt-1 p-2 border rounded-lg" placeholder="Search by ID">
+               class="w-full mt-1 p-2 border rounded-lg" placeholder="Search">
     </div>
 
     {{-- Hotel --}}
-    <div class="w-full sm:w-1/4">
+    <div>
         <label class="text-sm font-semibold text-gray-700">Hotel</label>
         <select name="hotel_id" class="w-full mt-1 p-2 border rounded-lg">
             <option value="">All Hotels</option>
@@ -47,7 +48,7 @@
     </div>
 
     {{-- Problem Type --}}
-    <div class="w-full sm:w-1/4">
+    <div>
         <label class="text-sm font-semibold text-gray-700">Problem Type</label>
         <select name="problem_type_id" class="w-full mt-1 p-2 border rounded-lg">
             <option value="">All Types</option>
@@ -59,8 +60,21 @@
         </select>
     </div>
 
+    {{-- Department --}}
+    <div>
+        <label class="text-sm font-semibold text-gray-700">Department</label>
+        <select name="department_id" class="w-full mt-1 p-2 border rounded-lg">
+            <option value="">All Departments</option>
+            @foreach ($departments as $dept)
+                <option value="{{ $dept->id }}" {{ request('department_id') == $dept->id ? 'selected' : '' }}>
+                    {{ $dept->name }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
     {{-- Status --}}
-    <div class="w-full sm:w-1/4">
+    <div>
         <label class="text-sm font-semibold text-gray-700">Status</label>
         <select name="status" class="w-full mt-1 p-2 border rounded-lg">
             <option value="">All Status</option>
@@ -71,7 +85,7 @@
     </div>
 
     {{-- Buttons --}}
-    <div class="w-full flex gap-3 pt-3">
+    <div class="col-span-1 sm:col-span-5 flex gap-3 pt-1">
         <button type="submit"
             class="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             Apply Filter
@@ -85,74 +99,75 @@
 
 </form>
 
-    {{-- Table --}}
-    <div class="bg-white shadow-lg rounded-xl overflow-hidden border">
-        <table class="min-w-full">
-            <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
-                <tr>
-                    <th class="px-6 py-3 text-left">ID</th>
-                    <th class="px-6 py-3 text-left">Hotel</th>
-                    <th class="px-6 py-3 text-left">Problem Type</th>
-                    <th class="px-6 py-3 text-left">Status</th>
-                    <th class="px-6 py-3 text-center">Actions</th>
-                </tr>
-            </thead>
 
-            <tbody class="divide-y text-gray-700">
-                @foreach ($tickets as $ticket)
-                <tr class="hover:bg-blue-50 transition">
-                    <td class="px-6 py-3 font-semibold">{{ $ticket->ticket_id }}</td>
-                    <td class="px-6 py-3">{{ $ticket->hotel->name }}</td>
-                    <td class="px-6 py-3">{{ $ticket->problemType->name }}</td>
+{{-- TABLE --}}
+<div class="bg-white shadow-lg rounded-xl overflow-hidden border">
+    <table class="min-w-full">
+        <thead class="bg-gray-100 text-gray-600 text-sm uppercase">
+            <tr>
+                <th class="px-6 py-3 text-left">ID</th>
+                <th class="px-6 py-3 text-left">Hotel</th>
+                <th class="px-6 py-3 text-left">Department</th>
+                <th class="px-6 py-3 text-left">Problem Type</th>
+                <th class="px-6 py-3 text-left">Status</th>
+                <th class="px-6 py-3 text-center">Actions</th>
+            </tr>
+        </thead>
 
-                    <td class="px-6 py-3">
-                        <span class="px-3 py-1 text-xs rounded-lg font-semibold
-                            @if($ticket->status=='Pending') bg-yellow-100 text-yellow-700 border-yellow-300
-                            @elseif($ticket->status=='In Progress') bg-blue-100 text-blue-700 border-blue-300
-                            @elseif($ticket->status=='Completed') bg-green-100 text-green-700 border-green-300
-                            @else bg-gray-200 text-gray-700 border-gray-300 @endif
-                        ">
-                            {{ $ticket->status }}
-                        </span>
-                    </td>
+        <tbody class="divide-y text-gray-700">
+            @foreach ($tickets as $ticket)
+            <tr class="hover:bg-blue-50 transition">
+                <td class="px-6 py-3 font-semibold">{{ $ticket->ticket_id }}</td>
+                <td class="px-6 py-3">{{ $ticket->hotel->name }}</td>
+                <td class="px-6 py-3">{{ $ticket->department->name ?? 'N/A' }}</td>
+                <td class="px-6 py-3">{{ $ticket->problemType->name }}</td>
 
-                    <td class="px-6 py-3 text-center space-x-2">
-                        <a href="{{ route('tickets.show', $ticket->id) }}"
-                           class="px-3 py-1 text-xs bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                           Show
-                        </a>
-                        @can('ticket-edit')
-                        <a href="{{ route('tickets.edit', $ticket->id) }}"
-                           class="px-3 py-1 text-xs bg-yellow-500 text-white rounded-md hover:bg-yellow-600">
-                           Edit
-                        </a>
-                        @endcan
-                        @can('ticket-delete')
-                        <form method="POST" action="{{ route('tickets.destroy', $ticket->id) }}" class="inline">
-                            @csrf @method('DELETE')
-                            <button onclick="return confirm('Delete this ticket?')"
-                                class="px-3 py-1 text-xs bg-red-600 text-white rounded-md hover:bg-red-700">
-                                Delete
-                            </button>
-                        </form>
-                        @endcan
-                    </td>
-                </tr>
-                @endforeach
+                <td class="px-6 py-3">
+                    <span class="px-3 py-1 text-xs rounded-lg font-semibold
+                        @if($ticket->status=='Pending') bg-yellow-100 text-yellow-700 border-yellow-300
+                        @elseif($ticket->status=='In Progress') bg-blue-100 text-blue-700 border-blue-300
+                        @elseif($ticket->status=='Completed') bg-green-100 text-green-700 border-green-300
+                        @else bg-gray-200 text-gray-700 border-gray-300 @endif
+                    ">
+                        {{ $ticket->status }}
+                    </span>
+                </td>
 
-                @if ($tickets->isEmpty())
-                <tr>
-                    <td colspan="5" class="py-6 text-center text-gray-500">No tickets found.</td>
-                </tr>
-                @endif
+                <td class="px-6 py-3 text-center space-x-2">
+                    <a href="{{ route('tickets.show', $ticket->id) }}"
+                       class="px-3 py-1 text-xs bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                       Show
+                    </a>
+                    @can('ticket-edit')
+                    <a href="{{ route('tickets.edit', $ticket->id) }}"
+                       class="px-3 py-1 text-xs bg-yellow-500 text-white rounded-md hover:bg-yellow-600">
+                       Edit
+                    </a>
+                    @endcan
+                    @can('ticket-delete')
+                    <form method="POST" action="{{ route('tickets.destroy', $ticket->id) }}" class="inline">
+                        @csrf @method('DELETE')
+                        <button onclick="return confirm('Delete this ticket?')"
+                            class="px-3 py-1 text-xs bg-red-600 text-white rounded-md hover:bg-red-700">
+                            Delete
+                        </button>
+                    </form>
+                    @endcan
+                </td>
+            </tr>
+            @endforeach
 
-            </tbody>
-        </table>
-    </div>
-
-    <div class="mt-5">
-        {!! $tickets->links('pagination::bootstrap-5') !!}
-    </div>
-
+            @if ($tickets->isEmpty())
+            <tr>
+                <td colspan="6" class="py-6 text-center text-gray-500">No tickets found.</td>
+            </tr>
+            @endif
+        </tbody>
+    </table>
 </div>
+
+<div class="mt-5">
+{{ $tickets->links('vendor.pagination.tailwind') }}
+</div>
+
 @endsection

@@ -6,14 +6,14 @@
     {{-- Header --}}
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
         <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
-            <i class="fa-solid fa-bell text-blue-600"></i> Notification Sources
+            <i class="fa-solid fa-building text-teal-500"></i> Departments
         </h2>
 
-        @can('notificationsource-create')
-        <a href="{{ route('notification-sources.create') }}"
-           class="mt-3 sm:mt-0 inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 
+        @can('department-create')
+        <a href="{{ route('departments.create') }}"
+           class="mt-3 sm:mt-0 inline-flex items-center gap-2 px-4 py-2 bg-teal-600 hover:bg-teal-700 
                   text-white text-sm font-semibold rounded-lg shadow-md transition transform hover:-translate-y-0.5">
-            <i class="fa fa-plus"></i> Add New Notification Source
+            <i class="fa fa-plus"></i> Add New Department
         </a>
         @endcan
     </div>
@@ -33,31 +33,34 @@
                 <thead class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-200 text-sm uppercase">
                     <tr>
                         <th class="px-6 py-3 text-left font-semibold">No</th>
-                        <th class="px-6 py-3 text-left font-semibold">Name</th>
+                        <th class="px-6 py-3 text-left font-semibold">Department Name</th>
+                        <th class="px-6 py-3 text-left font-semibold">Head Email</th>
                         <th class="px-6 py-3 text-center font-semibold w-48">Actions</th>
                     </tr>
                 </thead>
 
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-sm text-gray-700 dark:text-gray-300">
 
-                    @foreach ($sources as $source)
-                        <tr class="hover:bg-blue-50 dark:hover:bg-gray-700 transition">
+                    @foreach ($departments as $department)
+                        <tr class="hover:bg-teal-50 dark:hover:bg-gray-700 transition">
                             <td class="px-6 py-3">{{ ++$i }}</td>
 
-                            <td class="px-6 py-3 font-semibold">{{ $source->name }}</td>
+                            <td class="px-6 py-3 font-semibold">{{ $department->name }}</td>
+
+                            <td class="px-6 py-3">{{ $department->head_email }}</td>
 
                             <td class="px-6 py-3 text-center space-x-1">
 
                                 {{-- Show --}}
-                                <a href="{{ route('notification-sources.show', $source->id) }}"
+                                <a href="{{ route('departments.show', $department->id) }}"
                                    class="inline-flex items-center gap-1 bg-blue-500 hover:bg-blue-600 
                                           text-white text-xs font-semibold px-3 py-1.5 rounded-md transition">
                                     <i class="fa-solid fa-list"></i> Show
                                 </a>
 
                                 {{-- Edit --}}
-                                @can('notificationsource-edit')
-                                <a href="{{ route('notification-sources.edit', $source->id) }}"
+                                @can('department-edit')
+                                <a href="{{ route('departments.edit', $department->id) }}"
                                    class="inline-flex items-center gap-1 bg-yellow-500 hover:bg-yellow-600 
                                           text-white text-xs font-semibold px-3 py-1.5 rounded-md transition">
                                     <i class="fa-solid fa-pen-to-square"></i> Edit
@@ -65,12 +68,11 @@
                                 @endcan
 
                                 {{-- Delete --}}
-                                @can('notificationsource-delete')
-                                <form action="{{ route('notification-sources.destroy', $source->id) }}"
+                                @can('department-delete')
+                                <form action="{{ route('departments.destroy', $department->id) }}"
                                       method="POST" class="inline"
-                                      onsubmit="return confirm('Are you sure you want to delete this notification source?')">
-                                    @csrf
-                                    @method('DELETE')
+                                      onsubmit="return confirm('Are you sure you want to delete this department?')">
+                                    @csrf @method('DELETE')
                                     <button type="submit"
                                         class="inline-flex items-center gap-1 bg-red-600 hover:bg-red-700 
                                                text-white text-xs font-semibold px-3 py-1.5 rounded-md transition">
@@ -78,15 +80,16 @@
                                     </button>
                                 </form>
                                 @endcan
+
                             </td>
                         </tr>
                     @endforeach
 
                     {{-- No Data --}}
-                    @if ($sources->isEmpty())
+                    @if ($departments->isEmpty())
                         <tr>
-                            <td colspan="3" class="text-center py-6 text-gray-500 dark:text-gray-400">
-                                No notification sources found.
+                            <td colspan="4" class="text-center py-6 text-gray-500 dark:text-gray-400">
+                                No departments found.
                             </td>
                         </tr>
                     @endif
@@ -99,12 +102,12 @@
 
     {{-- Pagination --}}
     <div class="mt-5">
-{{ $sources->links('vendor.pagination.tailwind') }}
+        {{ $departments->links('vendor.pagination.tailwind') }}
     </div>
 
     {{-- Footer --}}
     <p class="text-center text-gray-500 dark:text-gray-400 text-sm mt-6">
-        Powered By <span class="font-semibold text-blue-600">NavicodesItSolutions</span>
+        Powered By <span class="font-semibold text-teal-500">NavicodesItSolutions</span>
     </p>
 
 </div>

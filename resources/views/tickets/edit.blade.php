@@ -54,7 +54,18 @@
                     @endforeach
                 </select>
             </div>
-
+            {{-- DEPARTMENT --}}
+            <div class="mb-4">
+                <label class="font-semibold">Department</label>
+                <select name="department_id" class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
+                    @foreach ($departments as $department)
+                        <option value="{{ $department->id }}"
+                            {{ $department->id == $ticket->department_id ? 'selected' : '' }}>
+                            {{ $department->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
             {{-- GUEST DETAILS --}}
             <div class="grid sm:grid-cols-2 gap-4 mb-4">
                 <div>

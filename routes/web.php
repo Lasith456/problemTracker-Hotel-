@@ -10,7 +10,7 @@ use App\Http\Controllers\ProblemAreaController;
 use App\Http\Controllers\NotificationSourceController;
 use App\Http\Controllers\HotelController;
 use App\Http\Controllers\ProblemTicketController;
-
+use App\Http\Controllers\DepartmentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,6 +45,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('notification-sources', NotificationSourceController::class);
     Route::resource('hotels', HotelController::class);
     Route::resource('tickets', ProblemTicketController::class);
-
-
+    Route::resource('departments', DepartmentController::class);
 });

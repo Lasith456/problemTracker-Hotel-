@@ -35,7 +35,7 @@
     {{-- PROBLEM TYPES --}}
     @canany(['problemtype-list','problemtype-create'])
     <a href="{{ route('problem-types.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-indigo-300">
+        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-blue-300">
         <div class="flex items-center gap-4">
             <div class="bg-blue-100 text-blue-600 p-4 rounded-xl">
                 <i class="fa-solid fa-list-check text-2xl"></i>
@@ -51,7 +51,7 @@
     {{-- PROBLEM AREAS --}}
     @canany(['problemarea-list','problemarea-create'])
     <a href="{{ route('problem-areas.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-indigo-300">
+        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-emerald-300">
         <div class="flex items-center gap-4">
             <div class="bg-emerald-100 text-emerald-600 p-4 rounded-xl">
                 <i class="fa-solid fa-map-location-dot text-2xl"></i>
@@ -67,7 +67,7 @@
     {{-- NOTIFICATION SOURCES --}}
     @canany(['notificationsource-list','notificationsource-create'])
     <a href="{{ route('notification-sources.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-indigo-300">
+        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-yellow-300">
         <div class="flex items-center gap-4">
             <div class="bg-yellow-100 text-yellow-600 p-4 rounded-xl">
                 <i class="fa-solid fa-bell text-2xl"></i>
@@ -83,7 +83,7 @@
     {{-- HOTELS --}}
     @canany(['hotel-list','hotel-create'])
     <a href="{{ route('hotels.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-indigo-300">
+        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-red-300">
         <div class="flex items-center gap-4">
             <div class="bg-red-100 text-red-600 p-4 rounded-xl">
                 <i class="fa-solid fa-hotel text-2xl"></i>
@@ -96,10 +96,26 @@
     </a>
     @endcanany
 
+    {{-- DEPARTMENTS --}}
+    @canany(['department-list','department-create'])
+    <a href="{{ route('departments.index') }}"
+        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-teal-300">
+        <div class="flex items-center gap-4">
+            <div class="bg-teal-100 text-teal-600 p-4 rounded-xl">
+                <i class="fa-solid fa-building text-2xl"></i>
+            </div>
+            <div>
+                <h3 class="text-lg font-bold text-gray-800 group-hover:text-teal-600">Departments</h3>
+                <p class="text-sm text-gray-500">Manage hotel departments</p>
+            </div>
+        </div>
+    </a>
+    @endcanany
+
     {{-- USERS & ROLES --}}
     @canany(['user-list','role-list'])
     <a href="{{ route('users.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-indigo-300">
+        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-purple-300">
         <div class="flex items-center gap-4">
             <div class="bg-purple-100 text-purple-600 p-4 rounded-xl">
                 <i class="fa-solid fa-users-gear text-2xl"></i>
@@ -113,6 +129,7 @@
     @endcanany
 
 </div>
+
 
         
         {{-- Footer --}}
