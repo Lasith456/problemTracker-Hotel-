@@ -15,7 +15,7 @@ class ProblemTicket extends Model
         'action_taken', 'actioned_at',
         'follow_up', 'followed_up_at',
         'compensation', 'amount', 'compensation_given_at',
-        'updated_by'
+        'updated_by','confirmation_number'
     ];
 
     public function hotel()

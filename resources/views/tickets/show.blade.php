@@ -29,7 +29,11 @@
                 {{ $ticket->status }}
             </span>
         </div>
-
+        {{-- Confirmation Number --}}
+        <div class="mb-6">
+            <h4 class="font-semibold text-gray-700">Confirmation Number</h4>
+            <p class="text-gray-900">{{ $ticket->confirmation_number ?? 'N/A' }}</p>
+        </div>
         {{-- Details Grid --}}
         <div class="grid sm:grid-cols-2 gap-6">
 
@@ -44,7 +48,7 @@
                 <h4 class="font-semibold text-gray-700">Department</h4>
                 <p class="text-gray-900">{{ $ticket->department->name ?? 'N/A' }}</p>
             </div>
-            
+
             {{-- Guest Name --}}
             <div>
                 <h4 class="font-semibold text-gray-700">Guest Name</h4>

@@ -115,6 +115,7 @@ public function store(Request $request)
         'compensation' => $request->compensation,
         'amount' => $request->amount,
         'compensation_given_at' => $request->compensation_given_at,
+                    'confirmation_number' => $request->confirmation_number,
         'updated_by' => Auth::id(),
     ]);
 
@@ -191,6 +192,7 @@ public function store(Request $request)
             'compensation' => $request->compensation,
             'amount' => $request->amount,
             'compensation_given_at' => $request->compensation_given_at,
+            'confirmation_number' => $request->confirmation_number,
 
             'updated_by' => Auth::id(),
         ]);

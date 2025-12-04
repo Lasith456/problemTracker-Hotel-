@@ -58,7 +58,13 @@
                     <input type="text" name="guest_name"
                            class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
                 </div>
-
+                {{-- CONFIRMATION NUMBER --}}
+                <div class="mb-4">
+                    <label class="font-semibold">Confirmation Number</label>
+                    <input type="text" name="confirmation_number"
+                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border"
+                           placeholder="Enter confirmation number">
+                </div>
                 <div>
                     <label class="font-semibold">Guest Contact</label>
                     <input type="text" name="guest_contact"
