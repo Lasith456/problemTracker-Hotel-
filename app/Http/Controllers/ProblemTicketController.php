@@ -82,52 +82,60 @@ public function index(Request $request)
     }
 
     /** Store Ticket */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'hotel_id' => 'required',
-            'problem_type_id' => 'required',
-            'department_id' => 'required',
-            'problem_area_id' => 'required',
-            'notification_source_id' => 'required',
-            'problem_description' => 'required',
-        ]);
+public function store(Request $request)
+{
+    $request->validate([
+        'hotel_id' => 'required',
+        'problem_type_id' => 'required',
+        'department_id' => 'required',
+        'problem_area_id' => 'required',
+        'notification_source_id' => 'required',
+        'problem_description' => 'required',
+    ]);
 
-        // Create ticket
-        $ticket = ProblemTicket::create([
-            'ticket_id' => 'TIC-' . str_pad(ProblemTicket::count() + 1, 5, '0', STR_PAD_LEFT),
-            'status' => 'Pending',
-            'hotel_id' => $request->hotel_id,
-            'department_id' => $request->department_id,
-            'guest_name' => $request->guest_name,
-            'guest_contact' => $request->guest_contact,
-            'room_no' => $request->room_no,
-            'check_in_date' => $request->check_in_date,
-            'check_out_date' => $request->check_out_date,
-            'problem_description' => $request->problem_description,
-            'problem_type_id' => $request->problem_type_id,
-            'problem_area_id' => $request->problem_area_id,
-            'notification_source_id' => $request->notification_source_id,
-            'action_taken' => $request->action_taken,
-            'actioned_at' => $request->actioned_at,
-            'follow_up' => $request->follow_up,
-            'followed_up_at' => $request->followed_up_at,
-            'compensation' => $request->compensation,
-            'amount' => $request->amount,
-            'compensation_given_at' => $request->compensation_given_at,
-            'updated_by' => Auth::id(),
-        ]);
+    // Create Ticket
+    $ticket = ProblemTicket::create([
+        'ticket_id' => 'TIC-' . str_pad(ProblemTicket::count() + 1, 5, '0', STR_PAD_LEFT),
+        'status' => 'Pending',
+        'hotel_id' => $request->hotel_id,
+        'department_id' => $request->department_id,
+        'guest_name' => $request->guest_name,
+        'guest_contact' => $request->guest_contact,
+        'room_no' => $request->room_no,
+        'check_in_date' => $request->check_in_date,
+        'check_out_date' => $request->check_out_date,
+        'problem_description' => $request->problem_description,
+        'problem_type_id' => $request->problem_type_id,
+        'problem_area_id' => $request->problem_area_id,
+        'notification_source_id' => $request->notification_source_id,
+        'action_taken' => $request->action_taken,
+        'actioned_at' => $request->actioned_at,
+        'follow_up' => $request->follow_up,
+        'followed_up_at' => $request->followed_up_at,
+        'compensation' => $request->compensation,
+        'amount' => $request->amount,
+        'compensation_given_at' => $request->compensation_given_at,
+        'updated_by' => Auth::id(),
+    ]);
 
-        // Load relationships before sending email
-        $ticket->load(['hotel','problemType','problemArea','notificationSource','department']);
+    // Load relationships before email
+    $ticket->load(['hotel', 'problemType', 'problemArea', 'notificationSource', 'department']);
 
-        // Send email to department head
-        if ($ticket->department && $ticket->department->head_email) {
+    // Send email (safe handling)
+    if ($ticket->department && $ticket->department->head_email) {
+        try {
             Mail::to($ticket->department->head_email)->send(new TicketCreatedMail($ticket));
+        } catch (\Exception $e) {
+            // Log silently, but DO NOT break the process
+            \Log::error('Ticket Email Failed: ' . $e->getMessage());
         }
-
-        return redirect()->route('tickets.index')->with('success', 'Ticket created successfully!');
     }
+
+    return redirect()
+        ->route('tickets.index')
+        ->with('success', 'Ticket created successfully!');
+}
+
 
 
 

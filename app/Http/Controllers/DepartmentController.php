@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Models\Hotel;
 use Illuminate\Http\Request;
 
 class DepartmentController extends Controller
@@ -15,59 +16,91 @@ class DepartmentController extends Controller
         $this->middleware('permission:department-delete', ['only' => ['destroy']]);
     }
 
-    public function index()
+    /** LIST **/
+    public function index(Request $request)
     {
-        $departments = Department::latest()->paginate(10);
+        $hotel_id = $request->hotel_id;
 
-        return view('departments.index', compact('departments'))
+        $departments = Department::with('hotel')
+            ->when($hotel_id, function ($query) use ($hotel_id) {
+                $query->where('hotel_id', $hotel_id);
+            })
+            ->latest()
+            ->paginate(10);
+
+        $hotels = \App\Models\Hotel::all();
+
+        return view('departments.index', compact('departments', 'hotels'))
             ->with('i', (request()->input('page', 1) - 1) * 10);
     }
 
+
+    /** CREATE FORM **/
     public function create()
     {
-        return view('departments.create');
+        return view('departments.create', [
+            'hotels' => Hotel::all()  // hotel dropdown
+        ]);
     }
 
+    /** STORE **/
     public function store(Request $request)
     {
         $request->validate([
+            'hotel_id' => 'required|exists:hotels,id',
             'name' => 'required',
             'head_email' => 'nullable|email',
         ]);
 
-        Department::create($request->all());
+        Department::create([
+            'hotel_id' => $request->hotel_id,
+            'name' => $request->name,
+            'head_email' => $request->head_email,
+        ]);
 
         return redirect()->route('departments.index')
             ->with('success', 'Department created successfully.');
     }
 
+    /** SHOW **/
     public function show($id)
     {
         return view('departments.show', [
-            'department' => Department::findOrFail($id),
+            'department' => Department::with('hotel')->findOrFail($id),
         ]);
     }
 
+    /** EDIT FORM **/
     public function edit($id)
     {
         return view('departments.edit', [
             'department' => Department::findOrFail($id),
+            'hotels' => Hotel::all(),
         ]);
     }
 
+    /** UPDATE **/
     public function update(Request $request, $id)
     {
         $request->validate([
+            'hotel_id' => 'required|exists:hotels,id',
             'name' => 'required',
             'head_email' => 'nullable|email',
         ]);
 
-        Department::findOrFail($id)->update($request->all());
+        $department = Department::findOrFail($id);
+
+        $department->update([
+            'hotel_id' => $request->hotel_id,
+            'name' => $request->name,
+            'head_email' => $request->head_email,
+        ]);
 
         return redirect()->route('departments.index')
             ->with('success', 'Department updated successfully.');
     }
 
+    /** DELETE **/
     public function destroy($id)
     {
         Department::findOrFail($id)->delete();

@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Department extends Model
 {
-    protected $fillable = ['name', 'head_email'];
+    protected $fillable = ['name', 'head_email','hotel_id'];
+    public function hotel() {
+    return $this->belongsTo(Hotel::class);
+}
+
 }

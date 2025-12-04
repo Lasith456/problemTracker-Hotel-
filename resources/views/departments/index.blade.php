@@ -18,6 +18,43 @@
         @endcan
     </div>
 
+
+    {{-- FILTER SECTION --}}
+    <form method="GET" action="{{ route('departments.index') }}"
+          class="bg-white dark:bg-gray-800 p-4 mb-6 rounded-xl shadow flex flex-wrap gap-4">
+
+        {{-- Hotel Filter --}}
+        <div class="w-full sm:w-1/3">
+            <label class="text-sm font-semibold text-gray-700 dark:text-gray-300">Filter by Hotel / Branch</label>
+            <select name="hotel_id"
+                    class="w-full mt-1 px-3 py-2 border rounded-lg bg-gray-100 dark:bg-gray-700 dark:text-white">
+
+                <option value="">-- All Hotels --</option>
+
+                @foreach($hotels as $hotel)
+                    <option value="{{ $hotel->id }}"
+                        {{ request('hotel_id') == $hotel->id ? 'selected' : '' }}>
+                        {{ $hotel->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        {{-- Buttons --}}
+        <div class="w-full sm:w-auto flex items-end gap-3">
+            <button type="submit"
+                    class="px-5 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700">
+                Apply Filter
+            </button>
+
+            <a href="{{ route('departments.index') }}"
+               class="px-5 py-2 bg-gray-300 rounded-lg hover:bg-gray-400 text-gray-800">
+                Clear
+            </a>
+        </div>
+
+    </form>
+
     {{-- Success Message --}}
     @if(session('success'))
         <div class="mb-5 p-4 rounded-lg bg-green-100 border border-green-300 text-green-800 text-sm">
@@ -34,8 +71,9 @@
                     <tr>
                         <th class="px-6 py-3 text-left font-semibold">No</th>
                         <th class="px-6 py-3 text-left font-semibold">Department Name</th>
+                        <th class="px-6 py-3 text-left font-semibold">Hotel / Branch</th>
                         <th class="px-6 py-3 text-left font-semibold">Head Email</th>
-                        <th class="px-6 py-3 text-center font-semibold w-48">Actions</th>
+                        <th class="px-6 py-3 text-center font-semibold w-56">Actions</th>
                     </tr>
                 </thead>
 
@@ -44,21 +82,21 @@
                     @foreach ($departments as $department)
                         <tr class="hover:bg-teal-50 dark:hover:bg-gray-700 transition">
                             <td class="px-6 py-3">{{ ++$i }}</td>
-
                             <td class="px-6 py-3 font-semibold">{{ $department->name }}</td>
+
+                            <td class="px-6 py-3">
+                                {{ $department->hotel->name ?? '— Not Assigned —' }}
+                            </td>
 
                             <td class="px-6 py-3">{{ $department->head_email }}</td>
 
                             <td class="px-6 py-3 text-center space-x-1">
-
-                                {{-- Show --}}
                                 <a href="{{ route('departments.show', $department->id) }}"
                                    class="inline-flex items-center gap-1 bg-blue-500 hover:bg-blue-600 
                                           text-white text-xs font-semibold px-3 py-1.5 rounded-md transition">
                                     <i class="fa-solid fa-list"></i> Show
                                 </a>
 
-                                {{-- Edit --}}
                                 @can('department-edit')
                                 <a href="{{ route('departments.edit', $department->id) }}"
                                    class="inline-flex items-center gap-1 bg-yellow-500 hover:bg-yellow-600 
@@ -67,7 +105,6 @@
                                 </a>
                                 @endcan
 
-                                {{-- Delete --}}
                                 @can('department-delete')
                                 <form action="{{ route('departments.destroy', $department->id) }}"
                                       method="POST" class="inline"
@@ -85,10 +122,9 @@
                         </tr>
                     @endforeach
 
-                    {{-- No Data --}}
                     @if ($departments->isEmpty())
                         <tr>
-                            <td colspan="4" class="text-center py-6 text-gray-500 dark:text-gray-400">
+                            <td colspan="5" class="text-center py-6 text-gray-500 dark:text-gray-400">
                                 No departments found.
                             </td>
                         </tr>
@@ -105,7 +141,6 @@
         {{ $departments->links('vendor.pagination.tailwind') }}
     </div>
 
-    {{-- Footer --}}
     <p class="text-center text-gray-500 dark:text-gray-400 text-sm mt-6">
         Powered By <span class="font-semibold text-teal-500">NavicodesItSolutions</span>
     </p>

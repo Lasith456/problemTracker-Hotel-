@@ -44,13 +44,12 @@
             {{-- DEPARTMENT --}}
             <div class="mb-4">
                 <label class="font-semibold">Department</label>
-                <select name="department_id" class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
+                <select name="department_id" id="department_select"
+                        class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
                     <option value="">-- Select Department --</option>
-                    @foreach ($departments as $dept)
-                        <option value="{{ $dept->id }}">{{ $dept->name }}</option>
-                    @endforeach
                 </select>
             </div>
+
 
             {{-- GUEST DETAILS --}}
             <div class="grid sm:grid-cols-2 gap-4 mb-4">
@@ -187,4 +186,37 @@
     </div>
 
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const hotelDropdown = document.querySelector("select[name='hotel_id']");
+        const deptDropdown  = document.getElementById("department_select");
+
+        hotelDropdown.addEventListener("change", function () {
+            const hotelId = this.value;
+
+            deptDropdown.innerHTML = `<option value="">Loading...</option>`;
+
+            if (!hotelId) {
+                deptDropdown.innerHTML = `<option value="">-- Select Department --</option>`;
+                return;
+            }
+
+            fetch(`/get-hotel-departments/${hotelId}`)
+                .then(response => response.json())
+                .then(data => {
+                    deptDropdown.innerHTML = `<option value="">-- Select Department --</option>`;
+                    if (data.length === 0) {
+                        deptDropdown.innerHTML = `<option value="">No departments available</option>`;
+                    }
+                    data.forEach(dept => {
+                        deptDropdown.innerHTML += `<option value="${dept.id}">${dept.name}</option>`;
+                    });
+                })
+                .catch(err => {
+                    deptDropdown.innerHTML = `<option>Error loading departments</option>`;
+                });
+        });
+    });
+</script>
+
 @endsection

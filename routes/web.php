@@ -46,4 +46,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('hotels', HotelController::class);
     Route::resource('tickets', ProblemTicketController::class);
     Route::resource('departments', DepartmentController::class);
+    Route::get('/get-hotel-departments/{hotel}', function ($hotelId) {
+    return \App\Models\Department::where('hotel_id', $hotelId)->get();
+});
+
 });
