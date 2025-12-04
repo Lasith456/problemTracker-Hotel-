@@ -3,6 +3,7 @@
 @section('content')
 <div class="bg-gray-50 min-h-screen p-6">
     <div class="max-w-7xl mx-auto space-y-6">
+
         {{-- Welcome Header --}}
         <div class="bg-white shadow rounded-2xl p-6 flex justify-between items-center">
             <div>
@@ -13,125 +14,182 @@
                 <p class="text-sm text-gray-500">Today: {{ now()->format('l, d M Y') }}</p>
             </div>
         </div>
-{{-- Quick Shortcut Tiles --}}
-<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-    {{-- TICKETS --}}
-    @canany(['ticket-list','ticket-create'])
-    <a href="{{ route('tickets.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-indigo-300">
-        <div class="flex items-center gap-4">
-            <div class="bg-indigo-100 text-indigo-600 p-4 rounded-xl">
-                <i class="fa-solid fa-ticket text-2xl"></i>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold text-gray-800 group-hover:text-indigo-600">Problem Tickets</h3>
-                <p class="text-sm text-gray-500">View & manage tickets</p>
-            </div>
+
+        {{-- Quick Shortcut Tiles --}}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            {{-- TICKETS --}}
+            @canany(['ticket-list','ticket-create'])
+            <a href="{{ route('tickets.index') }}"
+                class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-indigo-300">
+                <div class="flex items-center gap-4">
+                    <div class="bg-indigo-100 text-indigo-600 p-4 rounded-xl">
+                        <i class="fa-solid fa-ticket text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 group-hover:text-indigo-600">Problem Tickets</h3>
+                        <p class="text-sm text-gray-500">View & manage tickets</p>
+                    </div>
+                </div>
+            </a>
+            @endcanany
+
+            {{-- PROBLEM TYPES --}}
+            @canany(['problemtype-list','problemtype-create'])
+            <a href="{{ route('problem-types.index') }}"
+                class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-blue-300">
+                <div class="flex items-center gap-4">
+                    <div class="bg-blue-100 text-blue-600 p-4 rounded-xl">
+                        <i class="fa-solid fa-list-check text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 group-hover:text-blue-600">Problem Types</h3>
+                        <p class="text-sm text-gray-500">Manage categories</p>
+                    </div>
+                </div>
+            </a>
+            @endcanany
+
+            {{-- PROBLEM AREAS --}}
+            @canany(['problemarea-list','problemarea-create'])
+            <a href="{{ route('problem-areas.index') }}"
+                class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-emerald-300">
+                <div class="flex items-center gap-4">
+                    <div class="bg-emerald-100 text-emerald-600 p-4 rounded-xl">
+                        <i class="fa-solid fa-map-location-dot text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 group-hover:text-emerald-600">Problem Areas</h3>
+                        <p class="text-sm text-gray-500">View all problem areas</p>
+                    </div>
+                </div>
+            </a>
+            @endcanany
+
+            {{-- NOTIFICATION SOURCES --}}
+            @canany(['notificationsource-list','notificationsource-create'])
+            <a href="{{ route('notification-sources.index') }}"
+                class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-yellow-300">
+                <div class="flex items-center gap-4">
+                    <div class="bg-yellow-100 text-yellow-600 p-4 rounded-xl">
+                        <i class="fa-solid fa-bell text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 group-hover:text-yellow-600">Notification Sources</h3>
+                        <p class="text-sm text-gray-500">Manage notification types</p>
+                    </div>
+                </div>
+            </a>
+            @endcanany
+
+            {{-- HOTELS --}}
+            @canany(['hotel-list','hotel-create'])
+            <a href="{{ route('hotels.index') }}"
+                class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-red-300">
+                <div class="flex items-center gap-4">
+                    <div class="bg-red-100 text-red-600 p-4 rounded-xl">
+                        <i class="fa-solid fa-hotel text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 group-hover:text-red-600">Hotels / Branches</h3>
+                        <p class="text-sm text-gray-500">View & manage hotels</p>
+                    </div>
+                </div>
+            </a>
+            @endcanany
+
+            {{-- DEPARTMENTS --}}
+            @canany(['department-list','department-create'])
+            <a href="{{ route('departments.index') }}"
+                class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-teal-300">
+                <div class="flex items-center gap-4">
+                    <div class="bg-teal-100 text-teal-600 p-4 rounded-xl">
+                        <i class="fa-solid fa-building text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 group-hover:text-teal-600">Departments</h3>
+                        <p class="text-sm text-gray-500">Manage hotel departments</p>
+                    </div>
+                </div>
+            </a>
+            @endcanany
+
+            {{-- USERS --}}
+            @canany(['user-list','role-list'])
+            <a href="{{ route('users.index') }}"
+                class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-purple-300">
+                <div class="flex items-center gap-4">
+                    <div class="bg-purple-100 text-purple-600 p-4 rounded-xl">
+                        <i class="fa-solid fa-users-gear text-2xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-800 group-hover:text-purple-600">User Management</h3>
+                        <p class="text-sm text-gray-500">Manage users & roles</p>
+                    </div>
+                </div>
+            </a>
+            @endcanany
+
         </div>
-    </a>
-    @endcanany
 
-    {{-- PROBLEM TYPES --}}
-    @canany(['problemtype-list','problemtype-create'])
-    <a href="{{ route('problem-types.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-blue-300">
-        <div class="flex items-center gap-4">
-            <div class="bg-blue-100 text-blue-600 p-4 rounded-xl">
-                <i class="fa-solid fa-list-check text-2xl"></i>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold text-gray-800 group-hover:text-blue-600">Problem Types</h3>
-                <p class="text-sm text-gray-500">Manage categories</p>
-            </div>
+
+
+        {{-- CHART: Problems by Hotel + Department --}}
+        <div class="bg-white shadow rounded-2xl p-6 mt-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+                <i class="fa-solid fa-chart-column text-indigo-600"></i>
+                Problem Count by Hotel & Department
+            </h3>
+
+            <canvas id="ticketChart" height="120"></canvas>
         </div>
-    </a>
-    @endcanany
 
-    {{-- PROBLEM AREAS --}}
-    @canany(['problemarea-list','problemarea-create'])
-    <a href="{{ route('problem-areas.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-emerald-300">
-        <div class="flex items-center gap-4">
-            <div class="bg-emerald-100 text-emerald-600 p-4 rounded-xl">
-                <i class="fa-solid fa-map-location-dot text-2xl"></i>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold text-gray-800 group-hover:text-emerald-600">Problem Areas</h3>
-                <p class="text-sm text-gray-500">View all problem areas</p>
-            </div>
-        </div>
-    </a>
-    @endcanany
+        {{-- Chart.js CDN --}}
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    {{-- NOTIFICATION SOURCES --}}
-    @canany(['notificationsource-list','notificationsource-create'])
-    <a href="{{ route('notification-sources.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-yellow-300">
-        <div class="flex items-center gap-4">
-            <div class="bg-yellow-100 text-yellow-600 p-4 rounded-xl">
-                <i class="fa-solid fa-bell text-2xl"></i>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold text-gray-800 group-hover:text-yellow-600">Notification Sources</h3>
-                <p class="text-sm text-gray-500">Manage notification types</p>
-            </div>
-        </div>
-    </a>
-    @endcanany
+        <script>
+            const ctx = document.getElementById('ticketChart');
 
-    {{-- HOTELS --}}
-    @canany(['hotel-list','hotel-create'])
-    <a href="{{ route('hotels.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-red-300">
-        <div class="flex items-center gap-4">
-            <div class="bg-red-100 text-red-600 p-4 rounded-xl">
-                <i class="fa-solid fa-hotel text-2xl"></i>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold text-gray-800 group-hover:text-red-600">Hotels / Branches</h3>
-                <p class="text-sm text-gray-500">View & manage hotels</p>
-            </div>
-        </div>
-    </a>
-    @endcanany
-
-    {{-- DEPARTMENTS --}}
-    @canany(['department-list','department-create'])
-    <a href="{{ route('departments.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-teal-300">
-        <div class="flex items-center gap-4">
-            <div class="bg-teal-100 text-teal-600 p-4 rounded-xl">
-                <i class="fa-solid fa-building text-2xl"></i>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold text-gray-800 group-hover:text-teal-600">Departments</h3>
-                <p class="text-sm text-gray-500">Manage hotel departments</p>
-            </div>
-        </div>
-    </a>
-    @endcanany
-
-    {{-- USERS & ROLES --}}
-    @canany(['user-list','role-list'])
-    <a href="{{ route('users.index') }}"
-        class="group bg-white p-6 rounded-2xl shadow hover:shadow-lg transition border border-transparent hover:border-purple-300">
-        <div class="flex items-center gap-4">
-            <div class="bg-purple-100 text-purple-600 p-4 rounded-xl">
-                <i class="fa-solid fa-users-gear text-2xl"></i>
-            </div>
-            <div>
-                <h3 class="text-lg font-bold text-gray-800 group-hover:text-purple-600">User Management</h3>
-                <p class="text-sm text-gray-500">Manage users & roles</p>
-            </div>
-        </div>
-    </a>
-    @endcanany
-
-</div>
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: @json($labels),
+                    datasets: [{
+                        label: 'Total Problems',
+                        data: @json($values),
+                        backgroundColor: 'rgba(99, 102, 241, 0.6)',
+                        borderColor: 'rgba(99, 102, 241, 1)',
+                        borderWidth: 1,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: true },
+                        tooltip: {
+                            backgroundColor: '#1f2937',
+                            titleColor: '#fff',
+                            bodyColor: '#fff'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Number of Problems' }
+                        },
+                        x: {
+                            title: { display: true, text: 'Hotel - Department' },
+                            ticks: { autoSkip: false, maxRotation: 60, minRotation: 30 }
+                        }
+                    }
+                }
+            });
+        </script>
 
 
-        
+
         {{-- Footer --}}
         <div class="text-center text-gray-500 text-sm mt-6">
             © {{ date('Y') }} Navicodes IT Solutions — All Rights Reserved
