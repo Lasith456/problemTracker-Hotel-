@@ -47,18 +47,18 @@
         </select>
     </div>
 
-    {{-- Problem Type --}}
-    <div>
-        <label class="text-sm font-semibold text-gray-700">Problem Type</label>
-        <select name="problem_type_id" class="w-full mt-1 p-2 border rounded-lg">
-            <option value="">All Types</option>
-            @foreach ($problemTypes as $type)
-                <option value="{{ $type->id }}" {{ request('problem_type_id') == $type->id ? 'selected' : '' }}>
-                    {{ $type->name }}
-                </option>
-            @endforeach
-        </select>
-    </div>
+    <!--{{-- Problem Type --}}-->
+    <!--<div>-->
+    <!--    <label class="text-sm font-semibold text-gray-700">Problem Type</label>-->
+    <!--    <select name="problem_type_id" class="w-full mt-1 p-2 border rounded-lg">-->
+    <!--        <option value="">All Types</option>-->
+    <!--        @foreach ($problemTypes as $type)-->
+    <!--            <option value="{{ $type->id }}" {{ request('problem_type_id') == $type->id ? 'selected' : '' }}>-->
+    <!--                {{ $type->name }}-->
+    <!--            </option>-->
+    <!--        @endforeach-->
+    <!--    </select>-->
+    <!--</div>-->
 
     {{-- Department --}}
     <div>
