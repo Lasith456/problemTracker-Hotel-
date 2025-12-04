@@ -85,6 +85,11 @@
                     <input type="text" name="guest_contact" value="{{ $ticket->guest_contact }}"
                            class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
                 </div>
+                <div>
+                    <label class="font-semibold">Guest Email</label>
+                    <input type="email" name="email" value="{{ $ticket->email }}"
+                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
+                </div>
             </div>
 
             {{-- ROOM --}}
@@ -202,7 +207,19 @@
                 <input type="datetime-local" name="compensation_given_at" value="{{ $ticket->compensation_given_at }}"
                        class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
             </div>
-
+            {{-- ENTERED BY --}}
+            <div class="mb-4">
+                <label class="font-semibold">Entered By</label>
+                <input type="text" name="entered_by" value="{{ $ticket->entered_by }}"
+                       class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
+            </div>
+            
+            {{-- FOLLOWED UP BY --}}
+            <div class="mb-6">
+                <label class="font-semibold">Followed Up By</label>
+                <input type="text" name="followed_up_by" value="{{ $ticket->followed_up_by }}"
+                       class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
+            </div>
             {{-- SUBMIT --}}
             <button type="submit"
                 class="px-6 py-3 bg-yellow-600 hover:bg-yellow-700 text-white font-semibold rounded-lg shadow">

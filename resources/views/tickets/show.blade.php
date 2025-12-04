@@ -48,7 +48,10 @@
                 <h4 class="font-semibold text-gray-700">Department</h4>
                 <p class="text-gray-900">{{ $ticket->department->name ?? 'N/A' }}</p>
             </div>
-
+            <div>
+                <h4 class="font-semibold text-gray-700">Email</h4>
+                <p>{{ $ticket->email ?? 'N/A' }}</p>
+            </div>
             {{-- Guest Name --}}
             <div>
                 <h4 class="font-semibold text-gray-700">Guest Name</h4>
@@ -117,7 +120,11 @@
             <p>{{ $ticket->follow_up }}</p>
             <p class="text-gray-600 text-sm mt-1">Followed Up At: {{ $ticket->followed_up_at }}</p>
         </div>
-
+        {{-- Followed Up By --}}
+        <div class="mt-6">
+            <h4 class="font-semibold text-gray-700">Followed Up By</h4>
+            <p>{{ $ticket->followed_up_by ?? 'Not updated yet' }}</p>
+        </div>
         {{-- Compensation --}}
         <div class="mt-6 grid sm:grid-cols-2 gap-4">
             <div>
@@ -135,7 +142,11 @@
                 <p>{{ $ticket->compensation_given_at }}</p>
             </div>
         </div>
-
+        {{-- Entered By --}}
+        <div class="mt-6">
+            <h4 class="font-semibold text-gray-700">Entered By</h4>
+            <p>{{ $ticket->entered_by }}</p>
+        </div>
         {{-- Updated By --}}
         <div class="mt-8 text-gray-600 text-sm">
             Last updated by:

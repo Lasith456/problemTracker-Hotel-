@@ -68,7 +68,14 @@
                 <div>
                     <label class="font-semibold">Guest Contact</label>
                     <input type="text" name="guest_contact"
-                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
+                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border"
+                           placeholder="Enter guest contact">
+                </div>
+                <div>
+                    <label class="font-semibold">Guest Email</label>
+                    <input type="email" name="email"
+                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border"
+                           placeholder="Enter guest email">
                 </div>
             </div>
 
@@ -77,7 +84,8 @@
                 <div>
                     <label class="font-semibold">Room No</label>
                     <input type="text" name="room_no"
-                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
+                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border"
+                           placeholder="Enter room number">
                 </div>
 
                 <div>
@@ -97,7 +105,7 @@
             <div class="mb-4">
                 <label class="font-semibold">Problem Description</label>
                 <textarea name="problem_description"
-                          class="w-full mt-1 px-4 py-2 h-28 rounded-lg bg-gray-100 border"></textarea>
+                          class="w-full mt-1 px-4 py-2 h-28 rounded-lg bg-gray-100 border" placeholder="Describe the problem"></textarea>
             </div>
 
             {{-- PROBLEM TYPE / AREA / SOURCE --}}
@@ -138,7 +146,7 @@
             <div class="mb-4">
                 <label class="font-semibold">Action Taken</label>
                 <textarea name="action_taken"
-                          class="w-full mt-1 px-4 py-2 h-24 rounded-lg bg-gray-100 border"></textarea>
+                          class="w-full mt-1 px-4 py-2 h-24 rounded-lg bg-gray-100 border" placeholder="Enter action taken"></textarea>
             </div>
 
             <div class="grid sm:grid-cols-2 gap-4 mb-4">
@@ -159,7 +167,7 @@
             <div class="mb-4">
                 <label class="font-semibold">Follow Up</label>
                 <textarea name="follow_up"
-                          class="w-full mt-1 px-4 py-2 h-24 rounded-lg bg-gray-100 border"></textarea>
+                          class="w-full mt-1 px-4 py-2 h-24 rounded-lg bg-gray-100 border" placeholder="Enter follow up details"></textarea>
             </div>
 
             {{-- COMPENSATION --}}
@@ -167,13 +175,13 @@
                 <div>
                     <label class="font-semibold">Compensation</label>
                     <input type="text" name="compensation"
-                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
+                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border" placeholder="Enter compensation details">
                 </div>
 
                 <div>
                     <label class="font-semibold">Amount</label>
                     <input type="number" step="0.01" name="amount"
-                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
+                           class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border" placeholder="Enter amount">
                 </div>
             </div>
 
@@ -182,7 +190,17 @@
                 <input type="datetime-local" name="compensation_given_at"
                        class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border">
             </div>
-
+<div class="mb-4">
+                <label class="font-semibold">Entered By</label>
+                <input type="text" name="entered_by" value="{{ Auth::user()->name }}"
+                       class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border" >
+            </div>
+                        {{-- FOLLOWED UP BY --}}
+            <div class="mb-6">
+                <label class="font-semibold">Followed Up By</label>
+                <input type="text" name="followed_up_by"
+                       class="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border" placeholder="Enter name of person who followed up">
+            </div>
             {{-- SUBMIT --}}
             <button type="submit"
                 class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg shadow">
